@@ -1,0 +1,74 @@
+<h2 class="sub-header">
+    {{'companies_list'|translate}}
+</h2>
+<!--ol>
+    <li>
+      <md-form-field>
+        <input mdInput [(ngModel)]="name1" placeholder="What's your name?">
+      </md-form-field>
+    </li>
+    <li>
+      <button md-raised-button (click)="openDialog()">Pick one</button>
+    </li>
+    <li *ngIf="animal">
+      You chose: <i>{{animal}}</i>
+    </li>
+  </ol-->
+<div style="text-align:left;">
+    <!--form novalidate [formGroup]="companyForm" (ngSubmit)="save()" class="form-inline">
+        <div class="form-group">
+            <input type="text" formControlName="name" class="form-control" placeholder="{{'company_name'|translate}}" />
+            <valid-err [control]="companyForm.controls['name']"></valid-err>
+        </div>
+        <input type="submit" value="{{'new'|translate}}" [disabled]="!companyForm.valid" class="btn btn-default" />
+
+    </form-->
+    <button md-button (click)="openDialog()"><md-icon color="primary">add_circle</md-icon></button>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>{{'name'|translate}}</th>
+                <th>{{'created_at'|translate}}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of companys">
+                <td>{{item.id}} </td>
+                <td *ngIf="item.id != editRowId" (click)="toggleEdit(item.id)">{{item.name}} </td>
+                <td *ngIf="item.id == editRowId" class="form-inline">
+
+                    <div class="form-group">
+
+                        <input type="text" [(ngModel)]="item.name" class="form-control" />
+
+                    </div>
+                    <button (click)="update(item);editRowId=10000000;" class="btn btn-default btn-xs" [disabled]="item.name==''">{{'save'|translate}}</button>
+                    
+
+                </td>
+                <td>{{item.created_at}}</td>
+                <td>
+                    <md-icon (click)="greetMe(item.id);" color="warn" style="cursor:pointer;">delete_forever</md-icon></td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<!--
+<div>
+    <h2>Company object</h2>
+    {{item | json}}
+</div>
+<div>
+    <h2>Form object</h2>
+    {{companyForm.value | json}}
+</div>
+-->
+<img *ngIf="loading"  style="position:absolute;top:200px;left:50%;"  src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+/>
+<p-growl [(value)]="msgs"></p-growl>
+<p-confirmDialog width="400" rejectLabel="לא" acceptLabel="כן"></p-confirmDialog>

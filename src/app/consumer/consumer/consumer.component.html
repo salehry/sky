@@ -1,0 +1,44 @@
+<h2 class="sub-header">{{'consumers_list'|translate}}</h2>
+  <div>
+        <a class="btn btn-default" routerLink="/add-consumer" routerLinkActive="active" style="position: relative;
+        float: left;margin-bottom:5px;">{{'add_consumer'|translate}}</a>
+          <form novalidate [formGroup]="searchForm" (ngSubmit)="search()" class="form-inline">
+              <div class="form-group">
+                  <input type="text" formControlName="search" class="form-control" placeholder="{{'search_consumer'|translate}}" style="margin-bottom:5px;" />
+                  <valid-err [control]="searchForm.controls['search']"></valid-err>
+              </div>
+              <input type="submit" value="{{'click_to_search'|translate}}" [disabled]="!searchForm.valid" class="btn btn-default" style="margin-bottom:5px;" />
+      
+          </form>
+      </div>
+<div class="table-responsive">
+      
+  <table class="table table-striped">
+      <thead>
+          <tr>
+              <th>#</th>
+              <th>{{'consumer_name'|translate}}</th>
+              <th>{{'agent_name'|translate}}</th>
+              <th>{{'phone'|translate}}</th>
+              <th>{{'consumer_created_at'|translate}}</th>
+              <th></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of consumers">
+              <td>{{item.id}} </td>
+              <td>{{item.firstname}} {{item.lastname}} </td>
+              <td>{{item.parent_name}}</td>
+              <td>{{item.phone}} </td>
+              <td>{{item.created_at}} </td>
+              <td>
+                    <a [routerLink]="['/edit-consumer', item.id]" routerLinkActive="active" class="btn btn-default btn-xs">{{'update'|translate}}</a></td>
+          </tr>
+
+      </tbody>
+  </table>
+</div>
+<img *ngIf="loading"  style="position:absolute;top:200px;left:50%;"  src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+/>
+<p-growl [(value)]="msgs"></p-growl>
+<p-confirmDialog width="400" rejectLabel="{{'no'|translate}}" acceptLabel="{{'yes'|translate}}"></p-confirmDialog>

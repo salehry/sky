@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.ui-dialog .ui-dialog-title {
+    float: right!important;
+    margin: .3em 16px .1em 0;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    float: left!important;
+}
+
+.ui-dialog.ui-widget .ui-dialog-content .fa {
+    float: left!important;
+}
+.ui-growl {
+    z-index: 9999999999999999999999999999999999999999!important;
+}
+.scalClass{
+    width:100%;
+    display: block!important;
+     border: none!important;
+}
+.sscalClass{
+    border: none!important;
+    width:100%;
+        padding: 6px!important;
+}
+.sscalClass:focus{
+    outline: none!important;
+     border: none!important;
+}
+.fa-backward:before {
+    content: "\f04e";
+}
+.fa-step-backward:before {
+    content: "\f051";
+}
+.fa-forward:before {
+    content: "\f04a";
+}
+.fa-step-forward:before {
+    content: "\f048";
+}

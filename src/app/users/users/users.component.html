@@ -1,0 +1,68 @@
+<h2 class="sub-header">
+    {{'users_list'|translate}}</h2>
+    <div>
+
+            <a class="btn btn-default" routerLink="/add-user" routerLinkActive="active" style="position: relative;
+            float: left;margin-bottom:5px;">{{'add_user'|translate}}</a>
+            <form novalidate [formGroup]="searchForm" (ngSubmit)="search()" class="form-inline">
+                <div class="form-group">
+                    <input type="text" formControlName="search" class="form-control" placeholder="{{'search_user'|translate}}" style="margin-bottom:5px;"/>
+                    <valid-err [control]="searchForm.controls['search']"></valid-err>
+                </div>
+                <input type="submit" value="{{'click_to_search'|translate}}" [disabled]="!searchForm.valid" class="btn btn-default" style="margin-bottom:5px;"/>
+        
+            </form>
+        </div>
+<div class="table-responsive ui-rtl" dir="rtl">
+        
+    <!--table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>{{'username'|translate}}</th>
+                <th>{{'user_art'|translate}}</th>
+                <th>{{'personal_id'|translate}}</th>
+                <th>{{'phone'|translate}} {{'mobile'|translate}}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of users">
+                <td>{{item.id}} </td>
+                <td>{{item.username}} </td>
+                <td *ngIf="item.level_id==1">{{'admin'|translate}}</td>
+                <td *ngIf="item.level_id==2">{{'worker'|translate}}</td>
+                <td *ngIf="item.level_id==3">{{'agent'|translate}}</td>
+                <td>{{item.national_id}} </td>
+                <td>{{item.mobile}} </td>
+                <td><a (click)="greetMe(item.id);" class="btn btn-danger btn-xs">{{'delete'|translate}}</a>
+                    <a [routerLink]="['/edit-user', item.id]" routerLinkActive="active" class="btn btn-default btn-xs">{{'update'|translate}}</a>
+                    </td>
+            </tr>
+
+        </tbody>
+    </table-->
+    <p-dataTable [value]="users" [rows]="30" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" sortMode="multiple">
+        <p-column field="id" header="#" [sortable]="true"></p-column>
+        <p-column field="username" header="{{'username'|translate}}" [sortable]="true"></p-column>
+        <p-column field="level_id" header="{{'user_art'|translate}}" [sortable]="true">
+            <ng-template let-col let-user="rowData" pTemplate="body" >
+                <span *ngIf="user[col.field]==1">{{'admin'|translate}}</span>
+                <span *ngIf="user[col.field]==2">{{'worker'|translate}}</span>
+                <span *ngIf="user[col.field]==3">{{'agent'|translate}}</span>
+            </ng-template>
+        </p-column>
+        <p-column field="national_id" header="{{'personal_id'|translate}}" [sortable]="true"></p-column>
+        <p-column field="mobile" header="{{'phone'|translate}} {{'mobile'|translate}}" [sortable]="true"></p-column>
+        <p-column field="id" header="">
+            <ng-template let-col let-user="rowData" pTemplate="body" dir="RTL">
+                <a (click)="greetMe(user[col.field]);" class="btn btn-danger btn-xs">{{'delete'|translate}}</a>
+                <a [routerLink]="['/edit-user', user[col.field]]" routerLinkActive="active" class="btn btn-default btn-xs">{{'update'|translate}}</a>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+</div>
+<img *ngIf="loading"  style="position:absolute;top:200px;left:50%;"  src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+/>
+<p-growl [(value)]="msgs"></p-growl>
+<p-confirmDialog width="400" rejectLabel="{{'no'|translate}}" acceptLabel="{{'yes'|translate}}"></p-confirmDialog>

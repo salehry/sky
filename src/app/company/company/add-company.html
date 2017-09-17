@@ -1,0 +1,27 @@
+
+<div md-dialog-content dir="RTL">
+  <p>{{'add_company'|translate}}?</p>
+  <!--md-form-field>
+    <input mdInput tabindex="1" [(ngModel)]="data.animal" placeholder="{{'company_name'|translate}}">
+  </md-form-field-->
+
+<form novalidate [formGroup]="data.company.companyForm"  class="form-inline">
+  <div class="form-group">
+      <md-form-field>
+      <input mdInput tabindex="1" formControlName="name" placeholder="{{'company_name'|translate}}" />
+      <valid-err [control]="data.company.companyForm.controls['name']"></valid-err>
+    </md-form-field>
+  </div>
+  
+
+</form>
+</div>
+<div md-dialog-actions dir="RTL">
+  <button md-button color="primary" (click)="save()" tabindex="2" [disabled]="!data.company.companyForm.valid">{{'save'|translate}}</button>
+  <button md-button color="warn" (click)="onNoClick()" tabindex="-1">{{'no_thanks'|translate}}</button>
+</div>
+
+
+<!-- Copyright 2017 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

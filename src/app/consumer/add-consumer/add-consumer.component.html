@@ -1,0 +1,53 @@
+<h2 class="sub-header">{{'add_consumer'|translate}}:</h2>
+<div class="col-md-5">
+    <form novalidate [formGroup]="consumerForm" (ngSubmit)="save()" autocomplete="off">
+        <div class="form-group">
+            <label>{{'related_to_agent'|translate}}</label><label for="">*</label>
+            <select formControlName="parent" class="form-control">
+                 <option *ngFor="let e of agents" value="{{e.id}}">{{e.username}}</option>
+             </select>
+            <valid-err [control]="consumerForm.controls['parent']"></valid-err>
+        </div>
+
+        <div class="form-group">
+            <label>{{'firstname'|translate}}</label><label for="">*</label>
+            <input type="text" formControlName="firstname" class="form-control" placeholder="" />
+            <valid-err [control]="consumerForm.controls['firstname']"></valid-err>
+        </div>
+        <div class="form-group">
+            <label>{{'lastname'|translate}}</label><label for="">*</label>
+            <input type="text" formControlName="lastname" class="form-control" placeholder="" />
+            <valid-err [control]="consumerForm.controls['lastname']"></valid-err>
+        </div>
+        <div class="form-group">
+            <label>{{'personal_id'|translate}}</label>
+            <input type="text" formControlName="national_id" class="form-control" placeholder="" />
+        </div>
+        <div class="form-group cal">
+            <label>{{'birthday'|translate}}</label>
+            <p-calendar formControlName="birthday" class="form-control calClass" formControlName="birthday" dateFormat="yy-mm-dd" [utc]="true" styleClass="scalClass" inputStyleClass="sscalClass" [monthNavigator]="true" [yearNavigator]="true" yearRange="1920:2018"></p-calendar>
+
+        </div>
+        
+        <div class="form-group">
+            <label>{{'email'|translate}}</label>
+            <input type="email" formControlName="email" class="form-control" placeholder="" />
+            
+        </div>
+        
+        <div class="form-group">
+            <label>{{'phone'|translate}}</label><label for="">*</label>
+            <input type="text" formControlName="phone" class="form-control" placeholder="" />
+            <valid-err [control]="consumerForm.controls['phone']"></valid-err>
+        </div>
+        <input type="submit" value="{{'add'|translate}}" [disabled]="!consumerForm.valid" class="btn btn-default" />
+
+    </form>
+</div>
+
+
+
+<p-confirmDialog width="400" rejectLabel="{{'no'|translate}}" acceptLabel="{{'yes'|translate}}"></p-confirmDialog>
+<BR/>
+<BR/>
+<BR/>

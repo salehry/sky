@@ -1,0 +1,78 @@
+
+<h2 class="sub-header"  *ngIf="user">{{'update_user'|translate}}:{{user.username}}</h2>
+
+<div class="col-md-5" *ngIf="user">
+    <form novalidate [formGroup]="userForm" (ngSubmit)="save()" autocomplete="off">
+        <div class="form-group">
+            <label>{{'username'|translate}}</label><label for="">*</label>
+            <input type="text" formControlName="username" class="form-control" placeholder="" />
+            <valid-err [control]="userForm.controls['username']"></valid-err>
+        </div>
+        <div class="form-group">
+            <label>{{'user_art'|translate}}</label><label for="">*</label>
+            <select formControlName="level_id" class="form-control">
+                 <option *ngFor="let e of userLevels" value="{{e.id}}"  [selected]="e.id==user.level_id">{{e.name|translate}}</option>
+             </select>
+            <valid-err [control]="userForm.controls['level_id']"></valid-err>
+        </div>
+
+        <div class="form-group">
+            <label>{{'firstname'|translate}}</label>
+            <input type="text" formControlName="firstname" class="form-control" placeholder="" />
+        </div>
+        <div class="form-group">
+            <label>{{'lastname'|translate}}</label>
+            <input type="text" formControlName="lastname" class="form-control" placeholder="" />
+        </div>
+        <div class="form-group">
+            <label>{{'personal_id'|translate}}</label><label for="">*</label>
+            <input type="text" formControlName="national_id" class="form-control" placeholder="" />
+            <valid-err [control]="userForm.controls['national_id']"></valid-err>
+        </div>
+        <div class="form-group cal">
+            <label>{{'birthday'|translate}}</label>
+            <p-calendar formControlName="birthday" class="form-control calClass" formControlName="birthday" dateFormat="yy-mm-dd" [utc]="true" styleClass="scalClass" inputStyleClass="sscalClass" [monthNavigator]="true" [yearNavigator]="true" yearRange="1920:2018"></p-calendar>
+            
+            </div>
+        <div class="form-group">
+                <label><input type="checkbox" formControlName="password_requied" (click)="togglePWD()"/></label>
+                <label>{{'password_update'|translate}}</label>
+               
+        </div>
+        <div class="form-group" *ngIf="showPwd">
+            <label>{{'password'|translate}}</label><label for="">*</label>
+            <input autocomplete="new-password" type="password" formControlName="password" class="form-control" pPassword weakLabel="סיסמא חלשה" mediumLabel="סיסמא פינונית" strongLabel="סיסמא חזקה" promptLabel="הכנס סיסמא בבקשה" />
+
+            <valid-err [control]="userForm.controls['password']"></valid-err>
+        </div>
+        <div class="form-group" *ngIf="showPwd">
+            <label>{{'password_verification'|translate}}</label><label for="">*</label>
+            <input autocomplete="new-password" type="password" formControlName="re_password" class="form-control" pPassword weakLabel="סיסמא חלשה" mediumLabel="סיסמא פינונית" strongLabel="סיסמא חזקה" promptLabel="אישור סיסמא" />
+            <valid-err [control]="userForm.controls['re_password']"></valid-err>
+        </div>
+        <div class="form-group">
+            <label>{{'email'|translate}}</label><label for="">*</label>
+            <input type="email" formControlName="email" class="form-control" placeholder="" />
+            <valid-err [control]="userForm.controls['email']"></valid-err>
+        </div>
+        <div class="form-group">
+            <label>{{'phone'|translate}} {{'mobile'|translate}}</label><label for="">*</label>
+            <input type="text" formControlName="mobile" class="form-control" placeholder="" />
+            <valid-err [control]="userForm.controls['mobile']"></valid-err>
+        </div>
+        <div class="form-group">
+            <label>{{'phone'|translate}}</label>
+            <input type="text" formControlName="phone" class="form-control" placeholder="" />
+        </div>
+        <input type="submit" value="{{'save'|translate}}" [disabled]="!userForm.valid" class="btn btn-default" />
+
+    </form>
+</div>
+
+<img *ngIf="loading"  style="position:absolute;top:200px;left:50%;"  src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+/>
+<p-growl [(value)]="msgs"></p-growl>
+<p-confirmDialog width="400" rejectLabel="{{'no'|translate}}" acceptLabel="{{'yes'|translate}}"></p-confirmDialog>
+<BR/>
+<BR/>
+<BR/>

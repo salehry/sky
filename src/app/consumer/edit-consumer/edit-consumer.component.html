@@ -1,0 +1,57 @@
+
+<h2 class="sub-header"  *ngIf="consumer">{{'update_consumer'|translate}}:{{consumer.firstname}} {{consumer.lastname}}</h2>
+<div class="col-md-5">
+    <form novalidate [formGroup]="consumerForm" (ngSubmit)="save()" autocomplete="off" *ngIf="consumer">
+        <div class="form-group">
+            <label>{{'related_to_agent'|translate}}</label><label for="">*</label>
+            <select formControlName="parent" class="form-control">
+                 <option *ngFor="let e of agents" value="{{e.id}}" [selected]="e.id==consumer.parent">{{e.username}}</option>
+             </select>
+            <valid-err [control]="consumerForm.controls['parent']"></valid-err>
+        </div>
+
+        <div class="form-group">
+            <label>{{'firstname'|translate}}</label><label for="">*</label>
+            <input type="text" formControlName="firstname" class="form-control" placeholder="" />
+            <valid-err [control]="consumerForm.controls['firstname']"></valid-err>
+        </div>
+        <div class="form-group">
+            <label>{{'lastname'|translate}}</label><label for="">*</label>
+            <input type="text" formControlName="lastname" class="form-control" placeholder="" />
+            <valid-err [control]="consumerForm.controls['lastname']"></valid-err>
+        </div>
+        <div class="form-group">
+            <label>{{'personal_id'|translate}}</label>
+            <input type="text" formControlName="national_id" class="form-control" placeholder="" />
+        </div>
+        <div class="form-group cal">
+            <label>{{'birthday'|translate}}</label>
+            <p-calendar formControlName="birthday" class="form-control calClass" 
+            formControlName="birthday" dateFormat="yy-mm-dd" [utc]="true" styleClass="scalClass" 
+            inputStyleClass="sscalClass" [monthNavigator]="true" [yearNavigator]="true" yearRange="1920:2018"></p-calendar>
+
+        </div>
+        
+        <div class="form-group">
+            <label>{{'email'|translate}}</label>
+            <input type="email" formControlName="email" class="form-control" placeholder="" />
+            
+        </div>
+        
+        <div class="form-group">
+            <label>{{'phone'|translate}}</label><label for="">*</label>
+            <input type="text" formControlName="phone" class="form-control" placeholder="" />
+            <valid-err [control]="consumerForm.controls['phone']"></valid-err>
+        </div>
+        <input type="submit" value="{{'save'|translate}}" [disabled]="!consumerForm.valid" class="btn btn-default" />
+
+    </form>
+</div>
+
+<img *ngIf="loading"  style="position:absolute;top:200px;left:50%;"  src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+/>
+
+<p-confirmDialog width="400" rejectLabel="{{'no'|translate}}" acceptLabel="{{'yes'|translate}}"></p-confirmDialog>
+<BR/>
+<BR/>
+<BR/>

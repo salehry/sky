@@ -1,0 +1,44 @@
+
+
+<h2 class="sub-header">
+  {{'product_list'|translate}}</h2>
+  <div style="width:100%;">
+
+          <!--a md-button routerLink="/add-product" routerLinkActive="active" style="position: relative;
+          float: left;margin-bottom:5px;"><md-icon color="primary">add_circle</md-icon></a-->
+          <button md-button (click)="openDialog()" style="position: relative;
+          float: left;margin-bottom:5px;"><md-icon color="primary">add_circle</md-icon></button>
+          <form novalidate [formGroup]="searchForm" (ngSubmit)="search()" class="form-inline">
+              <div class="form-group">
+                  <input type="text" formControlName="search" class="form-control" placeholder="{{'search_product'|translate}}" style="margin-bottom:5px;"/>
+                  <valid-err [control]="searchForm.controls['search']"></valid-err>
+              </div>
+              <input type="submit" value="{{'click_to_search'|translate}}" [disabled]="!searchForm.valid" class="btn btn-default" style="margin-bottom:5px;"/>
+      
+          </form>
+      </div>
+<div class="table-responsive ui-rtl" dir="RTL" style="width:100%;">
+  <p-dataTable [value]="products" [rows]="30" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" sortMode="multiple">
+    <p-column field="id" header="#" [sortable]="true"></p-column>
+    <p-column field="name" header="{{'name'|translate}}" [sortable]="true"></p-column>
+    <p-column field="description" header="{{'description'|translate}}" [sortable]="true"></p-column>
+    <p-column field="price" header="{{'price'|translate}}" [sortable]="true"></p-column>
+    <p-column field="company_name" header="{{'company'|translate}}" [sortable]="true">
+        
+    </p-column>
+    <p-column field="id" header="">
+        <ng-template let-col let-product="rowData" pTemplate="body" dir="RTL">
+
+            <!--a (click)="greetMe(product[col.field]);" class="btn btn-danger btn-xs">{{'delete'|translate}}</a-->
+            <md-icon (click)="greetMe(product[col.field]);" color="warn" style="cursor:pointer;">delete_forever</md-icon>
+            <md-icon [routerLink]="['/edit-product', product[col.field]]" routerLinkActive="active" color="primary" style="cursor:pointer;">mode_edit</md-icon>
+            <!--a [routerLink]="['/edit-product', product[col.field]]" routerLinkActive="active" class="btn btn-default btn-xs">{{'update'|translate}}</a-->
+        </ng-template>
+    </p-column>
+</p-dataTable>
+</div>
+
+<img *ngIf="loading"  style="position:absolute;top:200px;left:50%;"  src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+/>
+<p-growl [(value)]="msgs"></p-growl>
+<p-confirmDialog width="400" rejectLabel="{{'no'|translate}}" acceptLabel="{{'yes'|translate}}"></p-confirmDialog>
